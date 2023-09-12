@@ -169,7 +169,7 @@
             <div>
               <div class="item__category item__category--50 l-megamenu__cat"><a title="White papers" href="/">White papers</a></div>
               <h2 class="headline-2">Report about mobile payment gateways</h2>
-              <p class="small-text"><img src="/assets/images/homework/post2.png" class="l-megamenu__image" alt=""> An MNO service that doesn&#39;t require a SIM change
+              <p class="small-text"><img src="/assets/images/homework/post2.png" class="l-megamenu__image" alt="" loading="lazy"> An MNO service that doesn&#39;t require a SIM change
               </p>
               <p>
                 <a class="btn btn--bg-darkblue btn--border-blue" href="/" title="Download now">Download now</a>
@@ -180,9 +180,12 @@
       </div>
     </div>
 
-    <header
-      class="l-home-banner"
-      style="background-image: url('/assets/images/homework/banner.png')">
+    <header class="l-home-banner">
+      <picture>
+        <source media="(min-width: 1400px)" srcset="/assets/images/homework/banner.png" />
+        <source media="(min-width: 800px)" srcset="/assets/images/homework/banner1400.png" />
+        <img src="/assets/images/homework/banner800.png" alt="" />
+      </picture>
       <div class="layout">
         <div class="home-banner__content text">
           <h1 class="headline-1">Seamless<br> payment option</h1>
@@ -266,7 +269,7 @@
         <div class="layout">
           <h2 class="headline-2">Find out more</h2>
 
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/W9-dlonF1JE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe title="Youtube" width="560" height="315" src="https://www.youtube.com/embed/W9-dlonF1JE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
         </div>
       </div>
 
@@ -555,7 +558,7 @@
         <div class="col-70 l-social-media__news-blog left">
           <div>
             <section class="l-home__news">
-              <h5 class="headline-6">News <span class="headline__see-all"><a title="See all news" href="/">See all news</a></span></h5>
+              <h4 class="headline-6">News <span class="headline__see-all"><a title="See all news" href="/">See all news</a></span></h4>
               <div class="news-list news-list--home text">
                 <article>
                   <div>
@@ -615,7 +618,7 @@
         <div class="col-30 l-social-media__right-sc right">
           <div>
             <section class="l-social-media__box-connect">
-              <h5 class="headline-6">Connect</h5>
+              <h4 class="headline-6">Connect</h4>
               <ul class="social-media social-media--white social-media--2-cols">
                 <li>
                   <a rel="external" title="Our profile at Twitter" href="">
