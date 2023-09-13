@@ -35,6 +35,7 @@ const gulp = require("gulp"),
   critical = require("critical"),
   sass = require("gulp-sass")(require("sass")),
   purgecss = require("gulp-purgecss"),
+  webp = require("gulp-webp"),
   src_folder = "./src/",
   src_assets_folder = src_folder + "assets/",
   dist_folder = "./dist/",
@@ -156,6 +157,27 @@ gulp.task("images", () => {
     .pipe(browserSync.stream());
 });
 
+gulp.task("optimizeAndConvert", async function () {
+  const imagemin = await import("gulp-imagemin").then(
+    (mod) => mod.default || mod
+  );
+  return gulp
+    .src([src_assets_folder + "images/**/*.+(png|jpg|jpeg|gif|svg|ico)"], {
+      since: gulp.lastRun("images"),
+    })
+    .pipe(
+      imagemin({
+        progressive: true,
+        svgoPlugins: [{ removeViewBox: false }],
+        interlaced: true,
+        optimizationLevel: 5,
+      })
+    )
+    .pipe(gulp.dest(dist_assets_folder + "images"))
+    .pipe(webp())
+    .pipe(gulp.dest(dist_assets_folder + "images"));
+});
+
 gulp.task("fonts", () => {
   return gulp
     .src([src_assets_folder + "fonts/**/*"], { since: gulp.lastRun("fonts") })
@@ -247,7 +269,7 @@ gulp.task(
     "fonts",
     "videos",
     "extra-files",
-    "images",
+    "optimizeAndConvert",
     "purgecss",
     "minify-css"
     /*'generate-critical-css',*/
