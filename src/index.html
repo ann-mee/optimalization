@@ -33,12 +33,15 @@
     <link rel="preload" as="style" href="https://use.typekit.net/lna1ryl.css">
     <link rel="stylesheet" href="https://use.typekit.net/lna1ryl.css" media="print" onload="this.media = 'all'">
     
-    <link rel="preload" href="/assets/images/homework/banner1400.png" as="image" media="(min-width: 1400px)">
-    <link rel="preload" href="/assets/images/homework/banner800.png" as="image" media="(min-width: 800px) and (max-width: 1399px)">
-    <link rel="preload" href="/assets/images/homework/banner.png" as="image" media="(max-width: 799px)">
-    <link rel="preload" href="/assets/images/homework/banner.webp" as="image" media="(max-width: 799px)">
-    <link rel="preload" href="/assets/images/homework/banner800.webp" as="image" media="(min-width: 800px) and (max-width: 1399px)">
-    <link rel="preload" href="/assets/images/homework/banner1400.webp" as="image" media="(min-width: 1400px)">
+
+    <link rel="preload" href="/assets/images/homework/banner.png" as="image" media="(min-width: 1400px)">
+    <link rel="preload" href="/assets/images/homework/banner.webp" as="image" media="(min-width: 1400px)">
+    <link rel="preload" href="/assets/images/homework/banner1400.png" as="image" media="(min-width: 800px) and (max-width: 1399px)">
+    <link rel="preload" href="/assets/images/homework/banner1400.webp" as="image" media="(min-width: 800px) and (max-width: 1399px)">
+    <link rel="preload" href="/assets/images/homework/banner800.png" as="image" media="(max-width: 799px)">
+    <link rel="preload" href="/assets/images/homework/banner800.webp" as="image" media="(max-width: 799px)">
+
+
 
     <link href="/assets/css/homework/app.css" rel="stylesheet">
     <link media="none" onload="if(media!='all')media='all'" href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
@@ -208,11 +211,11 @@
 
     <header class="l-home-banner">
       <picture>
-        <source media="(min-width: 1400px)" type="image/webp" srcset="/assets/images/homework/banner.webp" />
-        <source media="(min-width: 800px)" type="image/webp" srcset="/assets/images/homework/banner1400.webp" />
-        <source media="(max-width: 799px)" type="image/webp" srcset="/assets/images/homework/banner800.webp" />
+        <source media="(min-width: 1400px)" type="image/webp" srcset="/assets/images/homework/banner.webp" />        
         <source media="(min-width: 1400px)" type="image/png" srcset="/assets/images/homework/banner.png" />
-        <source media="(min-width: 800px)" type="image/png" srcset="/assets/images/homework/banner1400.png" />
+        <source media="(min-width: 800px) and (max-width: 1399px)" type="image/webp" srcset="/assets/images/homework/banner1400.webp" />
+        <source media="(min-width: 800px) and (max-width: 1399px)" type="image/png" srcset="/assets/images/homework/banner1400.png" />
+        <source media="(max-width: 799px)" type="image/webp" srcset="/assets/images/homework/banner800.webp" />
         <img src="/assets/images/homework/banner800.png" alt="" fetchpriority="high"/>
       </picture>
       <div class="layout">
