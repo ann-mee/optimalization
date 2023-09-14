@@ -36,6 +36,7 @@ const gulp = require("gulp"),
   sass = require("gulp-sass")(require("sass")),
   purgecss = require("gulp-purgecss"),
   webp = require("gulp-webp"),
+  postcss = require("gulp-postcss"),
   src_folder = "./src/",
   src_assets_folder = src_folder + "assets/",
   dist_folder = "./dist/",
@@ -85,9 +86,16 @@ gulp.task("purgecss", () => {
 
 gulp.task("minify-css", function () {
   return gulp
-    .src(dist_assets_folder + "css/*.css")
+    .src(dist_assets_folder + "css/**/*.css")
     .pipe(minifyCss({ compatibility: "ie8" }))
     .pipe(gulp.dest(dist_assets_folder + "css"));
+});
+
+gulp.task("tailwind", function () {
+  return gulp
+    .src(src_assets_folder + "css/*.css")
+    .pipe(postcss([require("tailwindcss"), require("autoprefixer")]))
+    .pipe(gulp.dest(dist_assets_folder + "css/homework/"));
 });
 
 gulp.task("js", () => {
@@ -270,6 +278,7 @@ gulp.task(
     "videos",
     "extra-files",
     "optimizeAndConvert",
+    "tailwind",
     "purgecss",
     "minify-css"
     /*'generate-critical-css',*/
