@@ -56,15 +56,14 @@
     <link rel="stylesheet" href="https://use.typekit.net/lna1ryl.css" media="print" onload="this.media = 'all'">
     
 
-    <link rel="preload" href="/assets/images/homework/banner.png" as="image" media="(min-width: 1400px)">
-    <link rel="preload" href="/assets/images/homework/banner.webp" as="image" media="(min-width: 1400px)">
-    <link rel="preload" href="/assets/images/homework/banner1400.png" as="image" media="(min-width: 800px) and (max-width: 1399px)">
-    <link rel="preload" href="/assets/images/homework/banner1400.webp" as="image" media="(min-width: 800px) and (max-width: 1399px)">
-    <link rel="preload" href="/assets/images/homework/banner800.png" as="image" media="(max-width: 799px)">
-    <link rel="preload" href="/assets/images/homework/banner800.webp" as="image" media="(max-width: 799px)">
+    <link rel="preload" href="/assets/images/homework/banner.webp" type="image/webp" as="image" media="(min-width: 1400px)">
+    <link rel="preload" href="/assets/images/homework/banner1400.webp" type="image/webp" as="image" media="(min-width: 800px) and (max-width: 1399px)">
+    <link rel="preload" href="/assets/images/homework/banner800.webp" type="image/webp" as="image" media="(max-width: 799px)">
+    
 
 
     <script src="/assets/js/homework/vendor/jquery/dist/jquery.min.js" defer></script>
+    
 
 
     <link rel="preload" as="style" href="/assets/css/homework/app.css">
@@ -72,9 +71,15 @@
     <link href="/assets/css/homework/tailwind.css" rel="stylesheet" media="print" onload="this.media='all'">
 
   
-    <script>var media_url = '/assets/', site_url = '/';$(document).load().scrollTop(0);</script>
+    <script>
+      var media_url = '/assets/', site_url = '/';
+      document.addEventListener("DOMContentLoaded", function() {
+        window.scrollTo(0, 0);
+      });  
+    </script>
     <script data-main="/assets/js/homework/home" src="/assets/js/homework/vendor/requirejs/require.js" defer></script>
    
+    
   </head>
   <body>
 
@@ -216,12 +221,12 @@
 
     <header class="l-home-banner">
       <picture>
-        <source media="(min-width: 1400px)" type="image/webp" srcset="/assets/images/homework/banner.webp" />        
         <source media="(min-width: 1400px)" type="image/png" srcset="/assets/images/homework/banner.png" />
-        <source media="(min-width: 800px) and (max-width: 1399px)" type="image/webp" srcset="/assets/images/homework/banner1400.webp" />
+        <source media="(min-width: 1400px)" type="image/webp" srcset="/assets/images/homework/banner.webp" />        
         <source media="(min-width: 800px) and (max-width: 1399px)" type="image/png" srcset="/assets/images/homework/banner1400.png" />
+        <source media="(min-width: 800px) and (max-width: 1399px)" type="image/webp" srcset="/assets/images/homework/banner1400.webp" />
         <source media="(max-width: 799px)" type="image/webp" srcset="/assets/images/homework/banner800.webp" />
-        <img src="/assets/images/homework/banner800.png" alt="" fetchpriority="high"/>
+        <img src="/assets/images/homework/banner800.png" alt="" />
       </picture>
       <div class="layout">
         <div class="home-banner__content text">
@@ -242,20 +247,75 @@
         </div>
 
         <div class="home-banner__anim">
-          <img id="resizer" src="/assets/images/homework/anim/empty-block.png" alt="Empty block" />
-          <img id="shadow" src="/assets/images/homework/anim/shadow.png" alt="Shadow" />
-          <img id="rainbow" src="/assets/images/homework/anim/rainbow.png" alt="Rainbow" />
-          <img id="pc" src="/assets/images/homework/anim/pc.png" alt="PC" />
-          <img id="social" src="/assets/images/homework/anim/social.png" alt="Social media" />
-          <img id="mobile" src="/assets/images/homework/anim/mobile.png" alt="Mobile" />
-          <img id="card-base" src="/assets/images/homework/anim/card-base.png" alt="Card base" />
-          <img id="card-chip" src="/assets/images/homework/anim/card-chip.png" alt="Card chip" />
-          <img id="cloud" src="/assets/images/homework/anim/cloud.png" alt="Cloud" />
-          <img id="chart-base" src="/assets/images/homework/anim/chart-base.png" alt="Chart base" />
-          <img id="chart-1" src="/assets/images/homework/anim/chart-1.png" alt="Chart 1" />
-          <img id="chart-2" src="/assets/images/homework/anim/chart-2.png" alt="Chart 2" />
-          <img id="chart-3" src="/assets/images/homework/anim/chart-3.png" alt="Chart 3" />
-          <img id="email" src="/assets/images/homework/anim/email.png" alt="Email" />
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/empty-block.webp" />
+            <img id="resizer" src="/assets/images/homework/anim/empty-block.png" alt="Empty block" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/shadow.webp" />
+            <img id="shadow" src="/assets/images/homework/anim/shadow.png" alt="Shadow" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/rainbow.webp" />
+            <img id="rainbow" src="/assets/images/homework/anim/rainbow.png" alt="Rainbow" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/pc.webp" />
+            <img id="pc" src="/assets/images/homework/anim/pc.png" alt="PC" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/social.webp" />
+            <img id="social" src="/assets/images/homework/anim/social.png" alt="Social media" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/mobile.webp" />
+            <img id="mobile" src="/assets/images/homework/anim/mobile.png" alt="Mobile" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/card-base.webp" />
+            <img id="card-base" src="/assets/images/homework/anim/card-base.png" alt="Card base" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/card-chip.webp" />
+            <img id="card-chip" src="/assets/images/homework/anim/card-chip.png" alt="Card chip" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/cloud.webp" />
+            <img id="cloud" src="/assets/images/homework/anim/cloud.png" alt="Cloud" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/chart-base.webp" />
+            <img id="chart-base" src="/assets/images/homework/anim/chart-base.png" alt="Chart base" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/chart-1.webp" />
+            <img id="chart-1" src="/assets/images/homework/anim/chart-1.png" alt="Chart 1" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/chart-2.webp" />
+            <img id="chart-2" src="/assets/images/homework/anim/chart-2.png" alt="Chart 2" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/chart-3.webp" />
+            <img id="chart-3" src="/assets/images/homework/anim/chart-3.png" alt="Chart 3" loading="lazy" />
+          </picture>
+          
+          <picture>
+            <source type="image/webp" srcset="/assets/images/homework/anim/email.webp" />
+            <img id="email" src="/assets/images/homework/anim/email.png" alt="Email" loading="lazy" />
+          </picture>
         </div>
       </div>
       <a title="Slide down" class="btn btn--border-blue btn--arrow-down" href="#main">Slide down</a>
