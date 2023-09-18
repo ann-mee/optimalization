@@ -60,6 +60,7 @@
     "webpack-stream": "^7.0.0"
   },
   "dependencies": {
+    "@builder.io/partytown": "^0.8.1",
     "fs-extra": "^10.0.1"
   },
   "engines": {
