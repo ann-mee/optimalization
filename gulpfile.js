@@ -78,7 +78,7 @@ gulp.task("purgecss", () => {
     .src(dist_assets_folder + "css/**/*.css")
     .pipe(
       purgecss({
-        content: [dist_folder + "*.html"],
+        content: [dist_folder + "*.html", dist_assets_folder + "js/**/*.js"],
       })
     )
     .pipe(gulp.dest(dist_assets_folder + "css"));
