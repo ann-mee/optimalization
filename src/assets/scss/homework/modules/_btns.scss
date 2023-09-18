@@ -131,3 +131,22 @@
         }
     }
 }
+
+.btn-chat {
+    background-color: rgb(3, 168, 78);
+    bottom: 22px;
+    right: 22px;
+    position: fixed;
+    z-index: 1000;
+    border: 0px;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+        fill: #fff;
+    }
+}
