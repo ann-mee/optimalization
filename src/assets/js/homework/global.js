@@ -94,7 +94,7 @@ define([
     },
 
     magnific: function () {
-      $("a.popup, .js-popup").on("click", function () {
+      $("a.popup").on("click", function () {
         var href = $(this).attr("href");
         var type = href.substring(href.length - 4, href.length);
         var title = $(this).attr("title");
@@ -113,6 +113,162 @@ define([
         } else {
           type = "iframe";
         }
+
+        $.magnificPopup.open({
+          items: {
+            src: href,
+          },
+          type: type,
+          titleSrc: title,
+          gallery: {
+            enabled: true,
+            navigateByImgClick: true,
+          },
+          callbacks: {
+            close: function () {
+              if (clickedLinkClassName.indexOf("js-scrollToContent") > -1) {
+                var targetOffset = $(".main").offset().top;
+
+                setTimeout(function () {
+                  $("html,body").animate({ scrollTop: targetOffset }, 600);
+                }, 300);
+              }
+            },
+          },
+        });
+
+        return false;
+      });
+
+      $(".js-popup").on("click", function () {
+        var href = $(this).attr("href");
+        var type = href.substring(href.length - 4, href.length);
+        var title = $(this).attr("title");
+        var clickedLinkClassName = $(this).attr("class");
+        var isInlinePopup = $(this).attr("data-inline-popup") || false;
+
+        if (
+          type == ".jpg" ||
+          type == ".gif" ||
+          type == ".png" ||
+          type == "jpeg"
+        ) {
+          type = "image";
+        } else if (isInlinePopup) {
+          type = "inline";
+        } else {
+          type = "iframe";
+        }
+
+        var form = document.getElementById("payment-form");
+
+        if (!form) {
+          return;
+        }
+
+        var script = document.createElement("script");
+        script.src = "https://js.stripe.com/v3/";
+        script.onload = function () {
+          var stripe = Stripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
+
+          // Create an instance of Elements.
+          var elements = stripe.elements();
+
+          // Custom styling can be passed to options when creating an Element.
+          // (Note that this demo uses a wider set of styles than the guide below.)
+          var style = {
+            base: {
+              color: "#32325d",
+              fontFamily:
+                '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+              fontSmoothing: "antialiased",
+              fontSize: "16px",
+              "::placeholder": {
+                color: "#aab7c4",
+              },
+              ":-webkit-autofill": {
+                color: "#32325d",
+              },
+            },
+            invalid: {
+              color: "#fa755a",
+              iconColor: "#fa755a",
+              ":-webkit-autofill": {
+                color: "#fa755a",
+              },
+            },
+          };
+
+          // Create an instance of the iban Element.
+          var iban = elements.create("iban", {
+            style: style,
+            supportedCountries: ["SEPA"],
+          });
+
+          // Add an instance of the iban Element into the `iban-element` <div>.
+          iban.mount("#iban-element");
+
+          var errorMessage = document.getElementById("error-message");
+          var bankName = document.getElementById("bank-name");
+
+          iban.on("change", function (event) {
+            // Handle real-time validation errors from the iban Element.
+            if (event.error !== undefined) {
+              errorMessage.textContent = event.error.message;
+              errorMessage.classList.add("visible");
+            } else {
+              errorMessage.classList.remove("visible");
+            }
+
+            // Display bank name corresponding to IBAN, if available.
+            if (event.bankName) {
+              bankName.textContent = event.bankName;
+              bankName.classList.add("visible");
+            } else {
+              bankName.classList.remove("visible");
+            }
+          });
+
+          // Handle form submission.
+
+          form.addEventListener("submit", function (event) {
+            event.preventDefault();
+            //showLoading();
+
+            var sourceData = {
+              type: "sepa_debit",
+              currency: "eur",
+              owner: {
+                name: document.querySelector('input[name="name"]').value,
+                email: document.querySelector('input[name="email"]').value,
+                address: {
+                  country: "test",
+                  line1: "test",
+                },
+              },
+              mandate: {
+                // Automatically send a mandate notification email to your customer
+                // once the source is charged.
+                notification_method: "email",
+              },
+            };
+
+            // Call `stripe.createSource` with the iban Element and additional options.
+            stripe.createSource(iban, sourceData).then(function (result) {
+              if (result.error) {
+                // Inform the customer that there was an error.
+                errorMessage.textContent = result.error.message;
+                errorMessage.classList.add("visible");
+                //stopLoading();
+              } else {
+                // Send the Source to your server to create a charge.
+                errorMessage.classList.remove("visible");
+                stripeSourceHandler(result.source);
+              }
+            });
+          });
+        };
+        document.head.appendChild(script);
 
         $.magnificPopup.open({
           items: {
@@ -342,118 +498,6 @@ define([
         ad.innerHTML = response;
       });
     },
-
-    paymentForms: function () {
-      var form = document.getElementById("payment-form");
-
-      if (!form) {
-        return;
-      }
-
-      var script = document.createElement("script");
-      script.src = "https://js.stripe.com/v3/";
-      script.onload = function () {
-        var stripe = Stripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
-
-        // Create an instance of Elements.
-        var elements = stripe.elements();
-
-        // Custom styling can be passed to options when creating an Element.
-        // (Note that this demo uses a wider set of styles than the guide below.)
-        var style = {
-          base: {
-            color: "#32325d",
-            fontFamily:
-              '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
-            fontSmoothing: "antialiased",
-            fontSize: "16px",
-            "::placeholder": {
-              color: "#aab7c4",
-            },
-            ":-webkit-autofill": {
-              color: "#32325d",
-            },
-          },
-          invalid: {
-            color: "#fa755a",
-            iconColor: "#fa755a",
-            ":-webkit-autofill": {
-              color: "#fa755a",
-            },
-          },
-        };
-
-        // Create an instance of the iban Element.
-        var iban = elements.create("iban", {
-          style: style,
-          supportedCountries: ["SEPA"],
-        });
-
-        // Add an instance of the iban Element into the `iban-element` <div>.
-        iban.mount("#iban-element");
-
-        var errorMessage = document.getElementById("error-message");
-        var bankName = document.getElementById("bank-name");
-
-        iban.on("change", function (event) {
-          // Handle real-time validation errors from the iban Element.
-          if (event.error !== undefined) {
-            errorMessage.textContent = event.error.message;
-            errorMessage.classList.add("visible");
-          } else {
-            errorMessage.classList.remove("visible");
-          }
-
-          // Display bank name corresponding to IBAN, if available.
-          if (event.bankName) {
-            bankName.textContent = event.bankName;
-            bankName.classList.add("visible");
-          } else {
-            bankName.classList.remove("visible");
-          }
-        });
-
-        // Handle form submission.
-
-        form.addEventListener("submit", function (event) {
-          event.preventDefault();
-          //showLoading();
-
-          var sourceData = {
-            type: "sepa_debit",
-            currency: "eur",
-            owner: {
-              name: document.querySelector('input[name="name"]').value,
-              email: document.querySelector('input[name="email"]').value,
-              address: {
-                country: "test",
-                line1: "test",
-              },
-            },
-            mandate: {
-              // Automatically send a mandate notification email to your customer
-              // once the source is charged.
-              notification_method: "email",
-            },
-          };
-
-          // Call `stripe.createSource` with the iban Element and additional options.
-          stripe.createSource(iban, sourceData).then(function (result) {
-            if (result.error) {
-              // Inform the customer that there was an error.
-              errorMessage.textContent = result.error.message;
-              errorMessage.classList.add("visible");
-              //stopLoading();
-            } else {
-              // Send the Source to your server to create a charge.
-              errorMessage.classList.remove("visible");
-              stripeSourceHandler(result.source);
-            }
-          });
-        });
-      };
-      document.head.appendChild(script);
-    },
   };
 
   return {
@@ -465,7 +509,6 @@ define([
       global.fallbacks();
       global.marketo_popup();
       global.social_media_share();
-      global.paymentForms();
       global.animations();
       global.ctaAds();
 
