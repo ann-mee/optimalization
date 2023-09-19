@@ -60,12 +60,12 @@ require(["./main"], function (main) {
             delay: 0.5,
           });
 
-          TweenLite.to("#cloud", 1.3, { top: 0, left: 0, ease: Expo.easeOut });
-          TweenLite.to("#social", 1.2, { top: 0, left: 0, ease: Expo.easeOut });
+          TweenLite.to("#cloud", 1.3, { y: 0, x: 0, ease: Expo.easeOut });
+          TweenLite.to("#social", 1.2, { y: 0, x: 0, ease: Expo.easeOut });
           TweenLite.to("#mobile", 1.1, { top: 0, ease: Expo.easeOut });
           TweenLite.to("#pc", 1.3, { top: 0, left: 0, ease: Expo.easeOut });
 
-          TweenLite.to("#rainbow", 1.1, { opacity: 1, delay: 0.5, left: 0 });
+          TweenLite.to("#rainbow", 1.1, { opacity: 1, delay: 0.5, x: 0 });
         }
 
         /* init anim items and set initial properties */
@@ -79,12 +79,12 @@ require(["./main"], function (main) {
         TweenMax.set("#chart-2", { scaleY: 0.1, top: "53.8%" });
         TweenMax.set("#chart-3", { scaleY: 0.1, top: "63.4%" });
 
-        TweenMax.set("#cloud", { left: "20%", top: "8%" });
-        TweenMax.set("#social", { left: "-10%", top: "-4%" });
+        TweenMax.set("#cloud", { x: "60%", y: "20%" });
+        TweenMax.set("#social", { x: "-100px", y: "-50px" });
         TweenMax.set("#mobile", { top: "20%" });
-        TweenMax.set("#pc", { left: "10%", top: "-2%" });
+        TweenMax.set("#pc", { x: "100px", y: "-2%" });
 
-        TweenMax.set("#rainbow", { opacity: 0, left: "-5%" });
+        TweenMax.set("#rainbow", { opacity: 0, x: "-20%" });
 
         TweenLite.to(".home-banner__content p", 2, { opacity: 1, delay: 1.6 });
         TweenLite.to(".l-home-banner__3-cols > div", 1, {
